@@ -3,6 +3,8 @@ console.log("test");
 let d = 0;
 let scene1, scene2;
 let angle = 0;
+let flower1Colors = ["#C23104", "#8B0000", "#FF1493"];
+let flower2Colors = ["#ADFF2F", "#9400D3", "#0000CD"];
 
 function setup() {
     let canvas = createCanvas(1400, 1000);
@@ -105,7 +107,7 @@ function draw() {
             push();
             rotate(radians(angle));
             scale(sin(frameCount * 0.004));
-            fill(194, 49, 4);
+            fill(flower1Colors[i]);
             stroke(255, 255, 100, 100);
             beginShape();
             vertex(0, 0);
@@ -142,7 +144,7 @@ function draw() {
             push();
             rotate(radians(angle));
             scale(sin(frameCount * 0.003));
-            fill(158, 65, 241);
+            fill(flower2Colors[i]);
             stroke(255, 255, 0);
             ellipse(30, 0, 30, 10);
             ellipse(50, 50, 30, 30);
