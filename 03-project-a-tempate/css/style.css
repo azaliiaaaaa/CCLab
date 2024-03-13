@@ -1,20 +1,20 @@
 body {
-    background-color: black;
-    color: aliceblue;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 1em;
+    background-color: rgb(206, 244, 137);
+    color: rgb(24, 65, 10);
+    font-family: 'Cinzel';
+    font-size: 0.5cm;
 }
 
 /* title */
 #title-wrapper {
     text-align: center;
-    margin-top: 120px;
+    margin-top: 140px;
 }
 
 .headline {
-    font-size: 4em;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    font-weight: 600;
+    font-size: 2.5cm;
+    font-family: 'Cinzel';
+    font-weight: 800;
 }
 
 /* main content */
@@ -25,15 +25,15 @@ body {
 }
 
 .red {
-    color: coral;
+    color: rgb(104, 0, 0);
 }
 
 .green {
-    color: aquamarine;
+    color: rgb(104, 0, 0);
 }
 
 .yellow {
-    color: gold;
+    color: rgb(104, 0, 0);
 }
 
 
@@ -60,12 +60,13 @@ body {
 }
 
 /* Sketch placeholder */
-#p5-canvas-container img {
-    width: 800px;
+#p5-canvas-container {
+    width: 1400px;
+    margin: auto;
 }
 
 #dog {
-    color: purple;
+    color: rgb(25, 64, 20);
 }
 
 /* home button */
