@@ -3,20 +3,21 @@ const NUM_OF_PARTICLES = 250;
 let startTime;
 
 function setup() {
-  let canvas = createCanvas(600, 600);
+  let canvas = createCanvas(800, windowHeight);
   canvas.parent("p5-canvas-container");
   startTime = millis();
-
-  // generate particles
-  for (let i = 0; i < NUM_OF_PARTICLES; i++) {
-    //particles[i] = new Particle(random(0, width), random(height, 0));
-    particles[i] = new Particle(width / 2, height / 2);
-  }
 }
 
 
 function draw() {
   background(243, 183, 247);
+
+  // generate
+  if (mouseIsPressed) {
+    for (let i = 0; i < NUM_OF_PARTICLES; i++) {
+      particles[i] = new Particle(mouseX, mouseY);
+    }
+  }
 
   // update and display
   for (let i = 0; i < particles.length; i++) {
@@ -27,17 +28,19 @@ function draw() {
     p.display();
   }
 
+  push();
+  translate(mouseX, mouseY);
   fill(255, 225, 0);
   noStroke();
-  triangle(250, 310, 310, 500, 330, 310);
-  ellipse(290, 307, 80, 35, 300, 300);
+  triangle(-40, 0, 0, 210, 40, 0);
+  ellipse(0, 0, 80, 35, 300, 300);
   stroke(153, 66, 245);
-  arc(292, 330, 73, 35, PI, TWO_PI);
-  arc(294, 350, 64, 35, PI, TWO_PI);
-  arc(299, 390, 45, 33, PI, TWO_PI);
-  arc(303, 430, 30, 30, PI, TWO_PI);
+  arc(0, 30, 73, 35, PI, TWO_PI);
+  arc(0, 40, 64, 35, PI, TWO_PI);
+  arc(0, 80, 45, 33, PI, TWO_PI);
+  arc(0, 120, 30, 30, PI, TWO_PI);
+  pop();
 }
-
 
 
 
@@ -57,9 +60,7 @@ class Particle {
     this.gravity = 0.04;
     this.isRising = true;
   }
-
   update() {
-
     if (this.isRising) {
       this.x += this.xspd * -this.dir;
       this.y += this.yspd;
@@ -67,7 +68,6 @@ class Particle {
         this.isRising = false;
       }
     } else {
-
       this.yspd += this.gravity;
       this.x += this.xspd * -this.dir;
       this.y += this.yspd;
@@ -115,7 +115,3 @@ class Particle {
     }
   }
 }
-
-
-
-

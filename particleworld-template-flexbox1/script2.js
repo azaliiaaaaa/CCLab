@@ -1,121 +1,127 @@
-let particles = [];
-const NUM_OF_PARTICLES = 250;
-let startTime;
-
+let numCandles = 5;
+let candles = [];
+let flames = [];
+let mic;
 function setup() {
-  let canvas = createCanvas(windowWidth, windowHeight);
-  canvas.parent("p5-canvas-container");
-  startTime = millis();
+  let canvas = createCanvas(800, 800);
+  canvas.parent("cnvcontainer");
 
-  // generate particles
-  for (let i = 0; i < NUM_OF_PARTICLES; i++) {
-    //particles[i] = new Particle(random(0, width), random(height, 0));
-    particles[i] = new Particle(width / 2, height / 2);
+  mic = new p5.AudioIn();
+  mic.start();
+
+  for (let i = 0; i < numCandles; i++) {
+    let startX = width / 2 + (i - 2) * 40;
+    let startY = height / 2;
+    candles[i] = new Candle(startX, startY);
   }
+  console.log("test");
 }
 
+let isBlown = false;
 
 function draw() {
   background(243, 183, 247);
+  let volume = mic.getLevel();
 
-  // update and display
-  for (let i = 0; i < particles.length; i++) {
-    let p = particles[i];
-    p.applyWind();
-    p.stop();
-    p.update();
-    p.display();
+  // draw the candles first!
+  for (let i = 0; i < candles.length; i++) {
+    let c = candles[i];
+    c.display();
+  }
+  if (isBlown == false) {
+    for (let i = 0; i < candles.length; i++) {
+      let c = candles[i];
+      // generate flames on each candle's position
+      flames.push(new Flame(c.x, c.y, volume));
+    }
   }
 
-  fill(255, 225, 0);
-  noStroke();
-  triangle(250, 310, 310, 500, 330, 310);
-  ellipse(290, 307, 80, 35, 300, 300);
-  stroke(153, 66, 245);
-  arc(292, 330, 73, 35, PI, TWO_PI);
-  arc(294, 350, 64, 35, PI, TWO_PI);
-  arc(299, 390, 45, 33, PI, TWO_PI);
-  arc(303, 430, 30, 30, PI, TWO_PI);
+  // update and display the flames
+  // for (let i = 0; i < flames.length; i++) {
+  for (let i = flames.length - 1; i >= 0; i--) {
+    let f = flames[i];
+    f.update();
+    f.display();
+    if (volume > 0.2) {
+      f.destroy();
+    }
+
+    if (!f.exist) {
+      flames.splice(i, 1);
+      isBlown = true;
+    }
+  }
+  while (flames.length > 500) {
+    flames.splice(0, 1);
+  }
 }
 
 
-
-
-class Particle {
-  // constructor function
+class Candle {
   constructor(startX, startY) {
     this.x = startX;
     this.y = startY;
-    this.xspd = random(-0.6, 0.6);
-    this.yspd = random(-8, -0.4);
-    this.dia = random(3, 6);
-    this.dir = 1;
+    this.w = 10;
+    this.h = 100;
+
+    //
     this.r = random(240);
     this.g = random(240);
     this.b = random(240);
-    this.rotSpd = random(0.01, 0.20);
-    this.gravity = 0.04;
-    this.isRising = true;
-  }
-
-  update() {
-
-    if (this.isRising) {
-      this.x += this.xspd * -this.dir;
-      this.y += this.yspd;
-      if (millis() - startTime > 4000) {
-        this.isRising = false;
-      }
-    } else {
-
-      this.yspd += this.gravity;
-      this.x += this.xspd * -this.dir;
-      this.y += this.yspd;
-    }
   }
   display() {
-
     push();
-    translate(this.x, this.y);
+    fill(this.r, this.g, this.b);
+    rectMode(CENTER);
+    rect(this.x, this.y + this.h / 2, this.w, this.h);
 
-    rotate(frameCount * this.rotSpd);
-    stroke(this.r, this.g, this.b);
-
-    fill(this.r, this.g, this.b, 100);
-    beginShape();
-    for (let i = 0; i < TWO_PI; i += TWO_PI / 5) {
-      let angle = i + PI / 2;
-      let x = cos(angle) * 5;
-      let y = sin(angle) * 5;
-      vertex(x, y);
-
-      angle += TWO_PI / 10;
-      x = cos(angle) * 9;
-      y = sin(angle) * 9;
-      vertex(x, y);
-    }
-    endShape(CLOSE);
-    rect(10, 10, 5, 10);
-    circle(0, 0, this.dia);
-    circle(3, 19, 5);
-
+    fill(255, 0, 0);
+    circle(this.x, this.y, 10);
     pop();
-  }
-  applyWind() {
-    if (mouseX < width / 2) {
-      this.dir = 1;
-    } else {
-      this.dir = -1;
-    }
-  }
-  stop() {
-    if (this.y >= height - 20) {
-      this.yspd = 0;
-      this.xspd = 0;
-    }
   }
 }
 
+class Flame {
+  constructor(startX, startY, volume) {
+    this.x = startX;
+    this.y = startY;
+    this.xSpd = 0;
+    this.ySpd = random(-0.8, -0.3);
+    this.dia = random(10, 30);
+
+    this.r = random(220, 255);
+    this.g = random(255);
+    this.b = 0;
+    this.a = map(volume, 0, 1, 50, 220);
+    this.exist = true;
+  }
+  update() {
+    this.x += random(-1, 1);
+    this.y += this.ySpd;
+
+    this.a -= 3;
+    if (this.a < 0) {
+      this.a = 0;
+    }
+
+    this.dia -= random(0.1, 0.5);
+    if (this.dia < 0) {
+      this.dia = 0;
+    }
+  }
+  display() {
+    push();
+    noStroke();
+    fill(this.r, this.g, this.b, this.a);
+    circle(this.x, this.y, this.dia);
+    pop();
+  }
+
+
+  destroy() {
+    this.exist = false;
+  }
+}
 
 
 
