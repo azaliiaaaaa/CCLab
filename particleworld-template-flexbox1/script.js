@@ -2,18 +2,15 @@ let particles = [];
 const NUM_OF_PARTICLES = 250;
 let startTime;
 
-
 function setup() {
   let canvas = createCanvas(800, windowHeight);
   canvas.parent("p5-canvas-container");
   startTime = millis();
-
 }
 
 
 function draw() {
   background(243, 183, 247);
-  cake.draw();
 
   // generate
   if (mouseIsPressed) {
@@ -118,6 +115,3 @@ class Particle {
     }
   }
 }
-
-
-
