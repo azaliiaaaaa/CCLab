@@ -1,26 +1,44 @@
-let numCandles = 5;
+let numCandles = 15;
 let candles = [];
 let flames = [];
 let mic;
+let restartButton;
 function setup() {
-  let canvas = createCanvas(800, 800);
+  let canvas = createCanvas(700, 450);
   canvas.parent("cnvcontainer");
 
   mic = new p5.AudioIn();
   mic.start();
 
+  // restartButton = createButton('I Have Another Wish');
+  // restartButton.position(width / 2 + 570, height + 100);
+  // restartButton.mousePressed(restartCandles);
+  // restartButton.class('pink-button');
+
   for (let i = 0; i < numCandles; i++) {
-    let startX = width / 2 + (i - 2) * 40;
+    let startX = width / 2 + (i - numCandles / 2) * 35;
     let startY = height / 2;
     candles[i] = new Candle(startX, startY);
   }
-  console.log("test");
 }
 
 let isBlown = false;
 
 function draw() {
   background(243, 183, 247);
+
+  restartButton = createButton('I Have Another Wish');
+  restartButton.position(width / 2 + 520, height + 400);
+  restartButton.mousePressed(restartCandles);
+  restartButton.class('pink-button');
+  fill(215, 98, 245);
+  stroke(5, 10, 10)
+  textAlign(CENTER, CENTER);
+  textSize(55);
+  text("Make a Wish", width / 2, 90);
+  textSize(45);
+  text("Blow the Candles", width / 2, 150);
+
   let volume = mic.getLevel();
 
   // draw the candles first!
@@ -37,7 +55,6 @@ function draw() {
   }
 
   // update and display the flames
-  // for (let i = 0; i < flames.length; i++) {
   for (let i = flames.length - 1; i >= 0; i--) {
     let f = flames[i];
     f.update();
@@ -120,6 +137,14 @@ class Flame {
 
   destroy() {
     this.exist = false;
+  }
+}
+function restartCandles() {
+  flames = [];
+  isBlown = false;
+  for (let i = 0; i < candles.length; i++) {
+    let c = candles[i];
+    flames.push(new Flame(c.x, c.y, 0));
   }
 }
 
