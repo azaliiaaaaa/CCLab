@@ -1,16 +1,41 @@
+let IMG_SIZE = 300;
+
 let particles = [];
 const NUM_OF_PARTICLES = 250;
 let startTime;
+let flags = [];
+let img7;
+
+let text1 = ["W", "E", "L", "C", "O", "M", "E", ".", "T", "O", ".", "T", "H", "E"]
+let text2 = ["B", "-", "D", "A", "Y", ".", "P", "A", "R", "T", "Y"]
+
+function preload() {
+  img7 = loadImage("C.png");
+}
 
 function setup() {
   let canvas = createCanvas(800, windowHeight);
   canvas.parent("p5-canvas-container");
   startTime = millis();
+
+  img7.resize(IMG_SIZE, IMG_SIZE);
+
+  // genereate flags
+  for (let i = 0; i < text2.length; i++) {
+    flags.push(new Flag(230 + i * 40, 150, text2[i], 1.5));
+  }
+  for (let i = 0; i < text1.length; i++) {
+    flags.push(new Flag(100 + i * 50, 55, text1[i], 1.0));
+  }
 }
 
 
 function draw() {
   background(243, 183, 247);
+
+  noStroke();
+  // rect(260, 200, IMG_SIZE, 450);
+  image(img7, 260, 260, IMG_SIZE, 450);
 
   // generate
   if (mouseIsPressed) {
@@ -26,6 +51,11 @@ function draw() {
     p.stop();
     p.update();
     p.display();
+  }
+
+  for (let i = 0; i < flags.length; i++) {
+    let f = flags[i];
+    f.display();
   }
 
   push();
@@ -113,5 +143,33 @@ class Particle {
       this.yspd = 0;
       this.xspd = 0;
     }
+  }
+}
+
+class Flag {
+  constructor(startX, startY, t, scl) {
+    this.x = startX;
+    this.y = startY;
+    this.text = t;
+    this.r = random(240);
+    this.g = random(240);
+    this.b = random(240);
+    this.size = 50;
+    this.scl = scl;
+  }
+
+  display() {
+    push();
+    translate(this.x, this.y);
+    scale(this.scl);
+    fill(this.r, this.g, this.b);
+    triangle(0, 0,
+      -this.size / 2, -this.size,
+      this.size / 2, -this.size);
+    fill(255);
+    textAlign(CENTER);
+    textSize(30);
+    text(this.text, 0, -this.size / 2);
+    pop();
   }
 }

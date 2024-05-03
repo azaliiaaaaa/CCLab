@@ -24,37 +24,38 @@ h1 {
 
 #mainFlexContainer {
   background-color: lavenderblush;
-  display: flex;
-  width: 96%;
-  max-width: 1800px;
+
+
+  width: 100%;
   margin: auto;
-  text-align: left;
+
+  /* text-align: left; */
+
+  display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
-
+  /* flex-wrap: wrap; */
   justify-content: center;
-
+  align-items: flex-start;
 }
 
 .intro {
-  max-width: 270px;
+  max-width: 240px;
   margin: 10px;
 }
 
 .credits {
-  max-width: 270px;
+  max-width: 240px;
   margin: 10px;
-
 }
 
-@media(max-width: 900px) {
+@media(max-width: 1100px) {
   #mainFlexContainer {
     flex-direction: column;
-    max-width: 600px;
+    max-width: 800px;
   }
 
   .intro {
-    width: 500px;
+    max-width: 100%;
     order: 2;
   }
 
@@ -63,7 +64,7 @@ h1 {
   }
 
   .credits {
-    max-width: 500px;
+    max-width: 100%;
     order: 3;
   }
 
@@ -87,8 +88,6 @@ h1 {
 
   #special-box {
     background-color: rgb(235, 185, 230);
-
-
   }
 
   #special-box1 {
@@ -104,8 +103,6 @@ h1 {
   display: block;
 }
 
-
-
 #mainFlexContainer1 {
   display: flex;
   justify-content: center;
@@ -116,10 +113,9 @@ h1 {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-
 }
 
-
+/* page2 */
 #container1 {
   display: flex;
   justify-content: center;
@@ -133,23 +129,60 @@ h1 {
   margin: 10px;
 }
 
-/* .box {
-  flex: 0 1 calc(50% - 50px);
-  height: 700px;
-  margin: 25px;
-  padding: 10px;
-  border: 1px solid rgba(255, 149, 225, 0.884);
-  border-width: 10px;
-  text-align: center;
-} */
+/* page4 */
+#container2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .box {
+    flex: 0 1 calc(30px);
+    height: 30px;
+    margin: 25px 0;
+    padding: 10px;
+    border: 1px solid rgba(254, 166, 222, 0.884);
+    border-width: 10px;
+  }
+
+  #special-box-6 {
+    background-color: rgb(255, 238, 254);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 30px;
+    width: 80%;
+    height: 30px;
+    text-align: center;
+    font-family: 'Lugrasimo', static;
+    color: rgb(142, 12, 97);
+
+    font-weight: 40;
+    font-size: 40px;
+    -webkit-text-stroke: 0.5px rgb(228, 104, 174);
+  }
+
+}
 
 .box-scroll {
   overflow: auto;
 }
 
 #p5-canvas {
+  position: absolute;
   display: block;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   justify-content: center;
+}
+
+#canvas1 {
+  position: absolute;
+  display: block;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .pink-button {
@@ -164,4 +197,14 @@ h1 {
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 8px;
+}
+
+#pink {
+  position: absolute;
+  bottom: 15%;
+}
+
+#pp {
+  position: absolute;
+  bottom: 7%;
 }
