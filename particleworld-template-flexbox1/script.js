@@ -25,12 +25,12 @@ let partyCone;
 
 
 function preload() {
-  img10 = loadImage("3.png");
+  img10 = loadImage("3.PNG");
   img7 = loadImage("C.png");
-  img9 = loadImage("1.png");
-  img8 = loadImage("2.png");
-  img11 = loadImage("4.png");
-  img12 = loadImage("12.png");
+  img9 = loadImage("1.PNG");
+  img8 = loadImage("2.PNG");
+  img11 = loadImage("4.PNG");
+  img12 = loadImage("12.PNG");
 }
 
 function setup() {
