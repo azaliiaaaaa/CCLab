@@ -76,7 +76,7 @@ function draw() {
 
 
   if (buttonC.checkMouse() == true) {
-    image(img9, 360, 293, 30, 30);
+    image(img9, 360, 292, 30, 30);
     image(img9, 425, 333, 30, 30);
     image(img9, 404, 390, 30, 30);
     image(img9, 360, 450, 30, 30);
