@@ -26,11 +26,17 @@ let partyCone;
 
 function preload() {
   img10 = loadImage("3.PNG");
+  console.log("1");
   img7 = loadImage("C.png");
+  console.log("1");
   img9 = loadImage("1.PNG");
+  console.log("1");
   img8 = loadImage("2.PNG");
+  console.log("1");
   img11 = loadImage("4.PNG");
+  console.log("1");
   img12 = loadImage("12.PNG");
+  console.log("1");
 }
 
 function setup() {
